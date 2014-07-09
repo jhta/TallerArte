@@ -8,11 +8,12 @@
 module.exports= function(grunt){
     grunt.initConfig({
        stylus: {
-          compile: {
-
+           
+           compile: {
+					options:{},
                     files: {
-                        'build.min.css':'**/prueba.styl',
-                        'build2.min.css':'**/prueba2.styl',
+                        'build.min.css':'stylus/prueba.styl',
+                        'build2.min.css':'stylus/prueba2.styl',
                     }
               
   		   }
