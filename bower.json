@@ -1,0 +1,17 @@
+{
+  "name": "TallerArte",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jhta/TallerArte",
+  "authors": [
+    "@jh7a"
+  ],
+  "description": "Herramienta para calculo de medidas para el aluminio",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

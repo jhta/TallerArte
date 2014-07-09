@@ -1,0 +1,32 @@
+{
+  "name": "TallerArte",
+  "version": "0.0.1",
+  "description": "Herramienta para calculo de medidas para cortes de aluminio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jhta/TallerArte.git"
+  },
+  "keywords": [
+    "aluminio",
+    "cerrajeria",
+    "cortes"
+  ],
+  "author": "@jh7a",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jhta/TallerArte/issues"
+  },
+  "homepage": "https://github.com/jhta/TallerArte",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-stylus": "~0.18.0",
+    "grunt-contrib-uglify": "~0.5.0",
+    "bower": "~1.3.7",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-watch": "~0.6.1"
+  }
+}
