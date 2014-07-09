@@ -18,6 +18,14 @@ module.exports= function(grunt){
               
   		   }
 		},
+        cssmin: {
+          minify: {
+              'combine': {
+                'files': { 'dist/libs.min.css': ['bower_components/bootstrap/dist/css/boostrap.min.css','bower_components/bootstrap/dist/css/boostrap-theme.min.css'] }
+            }
+            
+          }
+        },
         uglify: {
             build: {
                 files: [{
@@ -26,13 +34,18 @@ module.exports= function(grunt){
                 }]
                 
             }
+        },
+        watch:{
+            files:['stylus/*.styl','bower_components'],
+        	task:['stylus','uglify'] 
         }
     });
     
-    grunt.loadNpmTasks('grunt-contrib-uglify');    
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin'); 
     grunt.loadNpmTasks('grunt-contrib-watch'); //Cargamos las tareas de watch
     grunt.loadNpmTasks('grunt-contrib-stylus');
-    grunt.registerTask('default', ['uglify']);
+    grunt.registerTask('default', ['watch']);
     grunt.registerTask('build', ['uglify','stylus']);
       
 }
