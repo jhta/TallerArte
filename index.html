@@ -5,11 +5,111 @@ To change this template use Tools | Templates.
 <html>
 <head>
     <title>Aprendiendo Grunt</title>
-    <link rel="stylesheet" href="build.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <script src="dist/libs.min.js"></script>
+    <script src="bower_components/angularfire/angularfire.min.js"></script>
+    <script src="bower_components/firebase/firebase.min.js"></script>
+    <script src="controladores/controllerTareas.js"></script>
+    <link rel="stylesheet" href="stylus/general.css">
+    
     
 </head>
-<body>
-    <h1>Esto esta de puta madre :D sisas</h1>
+<body ng-app>
+    <div ng-controller="controllerTareas" class="row" >
+    <section   class="col-xs-offset-1 col-xs-6 panel contenedor">
+        
+        <legend class="text-center contenedor-titulo">
+                Gestor  de Tareas Por Prioridad :D
+        </legend>
+        <article   class="row">
+            <nav class="navbar navbar-default">
+                <form name="forma"  ng-submit="agregarTarea()" class="navbar-form">
+                    <div class="form-group has-feedback" ng-class="{'has-error':forma.texto.$invalid, 'has-success': forma.texto.$valid}">
+                        <input name="texto" required ng-model="textoNuevaTarea" type="text"  class="form-control" placeholder="Crea una Tarea!!">
+                        <span ng-show="forma.texto.$dirty && forma.texto.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span ng-show="forma.texto.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                        </div>
+                    <div class="form-group has-feedback" ng-class="{'has-error':forma.prioridad.$invalid, 'has-success': forma.prioridad.$valid }">
+                        <input name="prioridad" required ng-model="prioridadNuevaTarea" type="number"  min="0" max="10" class="form-control" value="0">
+                        <span ng-show="forma.prioridad.$dirty && forma.prioridad.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span> 
+                        <span ng-show="forma.prioridad.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback" ng-class="{'has-error':forma.asignador.$invalid, 'has-success': forma.asignador.$valid}">
+                        <input name="asignador" required ng-model="asignadorNuevaTarea" type="text"  class="form-control" placeholder="Quien Asigna?">  
+                        <span ng-show="forma.asignador.$dirty && forma.asignador.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span> 
+                        <span ng-show="forma.asignador.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                   </div>
+                  <button type="submit" class="btn btn-success" ng-disabled="forma.$invalid">Crear :)</button>
+                </form>
+            </nav>
+        </article>
+        <article   class="row">
+            <nav class="navbar navbar-default">
+                <form action=""  class="navbar-form">
+                    <div class="form-group">
+                        <div class="input-group">
+                          <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+                          <input class="form-control" ng-model="buscar" type="text" placeholder="Busca alguna tarea">
+                        </div>
+                      </div>
+                    
+                </form>
+            </nav>
+        </article>
+        <small>{{resueltas()}} resueltas de {{tareas.length}} [<a href="#" class="text-danger" ng-click="archivar()">Archivar</a>]</small>
+        <article class="row tabla table-responsive">
+            <table class=" table ">
+              <thead>
+                  <tr>
+                      <th><a href="#" ng-click="ordenarPor('-hecho')">Hecho</a></th>
+                      <th><a href="#" ng-click="ordenarPor('tarea')">Tarea</a></th>
+                      <th><a href="#" ng-click="ordenarPor('-prioridad')">Prioridad</a></th>
+                      <th><a href="" ng-click="ordenarPor('asignador')">Asignador</a></th>
+                  </tr>
+              </thead>
+              <tbody >
+                  <tr ng-repeat="tarea in tareas | orderBy:ordenSeleccionado | filter:buscar" class="tabla-elemento is-{{tarea.hecho}}">
+                      <td><input type=checkbox ng-model="tarea.hecho"></td>
+                      <td>{{tarea.texto}}</td>
+                      <td>{{tarea.prioridad}}</td>
+                      <td>{{tarea.asignador}}</td>
+                  </tr>
+                  
+                  
+              </tbody>
+            </table>
+        </article>
+        
+    </section>
+    <section class="col-xs-3 panel contenedor--mini">
+        <legend>Archivadas</legend>
+        <article id="archivadas" class="row tabla table-responsive">
+            <table class=" table ">
+              <thead>
+                  <tr>
+                      
+                      <th>Tarea </th>
+                      <th>Prioridad </th>
+                      
+                  </tr>
+              </thead>
+              <tbody >
+                  <tr ng-repeat="tarea in archivadas" class="tabla-elemento is-{{tarea.hecho}}">
+                      <td>{{tarea.texto}}</td>
+                      <td>{{tarea.prioridad}}</td>
+                      
+                  </tr>
+                  
+                  
+              </tbody>
+            </table>
+        </article>
+    </section>
+    
+    </div>
+    <footer class="row text-center center">
+        <small class="row">Power By: </small>
+        <img class="row icons"  src="https://d3gqmx6sr7od7s.cloudfront.net/assets/tech_logo_bar-6b620ccf04cc072980a62391aa6dde59.png" alt="">
+    </footer>
 </body>
 </html>

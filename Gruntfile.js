@@ -6,6 +6,11 @@
 * To change this template use Tools | Templates.
 */
 module.exports= function(grunt){
+    
+    var libs= [
+        'bower_components/bootstrap/dist/css/boostrap.min.css',
+        'bower_components/bootstrap/dist/css/boostrap-theme.min.css'
+    ];
     grunt.initConfig({
        stylus: {
            
@@ -19,9 +24,10 @@ module.exports= function(grunt){
   		   }
 		},
         cssmin: {
+          
           minify: {
               'combine': {
-                'files': { 'dist/libs.min.css': ['bower_components/bootstrap/dist/css/boostrap.min.css','bower_components/bootstrap/dist/css/boostrap-theme.min.css'] }
+                'files': { 'dist/libs.min.css': libs }
             }
             
           }
@@ -29,7 +35,10 @@ module.exports= function(grunt){
         uglify: {
             build: {
                 files: [{
-                    src: ['bower_components/bootstrap/dist/js/boostrap.min.js','bower_components/jquery/dist/jquery.min.js'],
+                    src: ['bower_components/bootstrap/dist/js/boostrap.min.js',
+                          'bower_components/jquery/dist/jquery.min.js',
+                          'node_modules/angular/lib/angular.min.js',
+                          'controladores/controllerTareas.js'],
                     dest: 'dist/libs.min.js'
                 }]
                 
@@ -47,5 +56,7 @@ module.exports= function(grunt){
     grunt.loadNpmTasks('grunt-contrib-stylus');
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('build', ['uglify','stylus']);
+     // cssmin task
+  grunt.registerTask('buildcss', ['cssmin']);
       
 }
