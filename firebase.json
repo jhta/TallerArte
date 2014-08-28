@@ -1,0 +1,9 @@
+{
+  "firebase": "espaya",
+  "public": ".",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}

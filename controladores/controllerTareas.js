@@ -1,11 +1,12 @@
-function controllerTareas($scope/*, $firebase*/){
-    //var refTareas= new Firebase('https://espaya.firebaseio.com/');
+var app = angular.module("myapp", ["firebase"]);
+function controllerTareas($scope, $firebase){
+    var refTareas= new Firebase('https://espaya.firebaseio.com/tareas');
     $scope.archivadas=[];
-    //$scope.tareas= $firebase(refTareas);
-    $scope.tareas=[
+    $scope.tareas= $firebase(refTareas);
+    /*$scope.tareas=[
         {texto: "mi  primer tarea :)", hecho:true, prioridad: 9, asignador: "yo"},
         {texto: "mi  segunda tarea :)", hecho:false, prioridad: 5, asignador: "yo"}
-    ]
+    ]*/
     $scope.archivar=function(){
         $scope.archivadas=[];
         angular.forEach($scope.tareas,function(i){
@@ -13,7 +14,7 @@ function controllerTareas($scope/*, $firebase*/){
         });
     }
     $scope.agregarTarea= function(){
-        $scope.tareas.push({texto: $scope.textoNuevaTarea,
+        $scope.tareas.$add({texto: $scope.textoNuevaTarea,
                             hecho: false,
                             prioridad: $scope.prioridadNuevaTarea,
                             asignador: $scope.asignadorNuevaTarea
@@ -23,6 +24,9 @@ function controllerTareas($scope/*, $firebase*/){
         $scope.asignadorNuevaTarea='';
     };
     
+    $scope.total=function(){
+        return $scope.tareas.$getIndex().length;
+    }
     $scope.resueltas=function(){
         var res=0;
         angular.forEach($scope.tareas, function(i){
@@ -30,10 +34,14 @@ function controllerTareas($scope/*, $firebase*/){
         });
         return res;
     };
-    
+    $scope.ordenSeleccionado='prioridad';
   $scope.ordenarPor = function(orden) {
     $scope.ordenSeleccionado = orden;
   };
+    
+    $scope.actualizar= function(){
+        
+    }
     
     /*$scope.archivadorVacio=function(){
         if($scope.archivadas.length==0) $("#archivadas").fadeOut() ;

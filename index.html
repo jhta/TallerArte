@@ -2,13 +2,15 @@
 To change this template use Tools | Templates.
 -->
 <!DOCTYPE html>
-<html>
+<html ng-app="myapp">
 <head>
     <title>Aprendiendo Grunt</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <script src="dist/libs.min.js"></script>
-    <script src="bower_components/angularfire/angularfire.min.js"></script>
-    <script src="bower_components/firebase/firebase.min.js"></script>
+    <!--<script src="bower_components/angularfire/angularfire.min.js"></script>
+    <script src="bower_components/firebase/firebase.min.js"></script>-->
+    <script src="https://cdn.firebase.com/js/client/1.0.17/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"></script>
     <script src="controladores/controllerTareas.js"></script>
     <link rel="stylesheet" href="stylus/general.css">
     
@@ -19,23 +21,23 @@ To change this template use Tools | Templates.
     <section   class="col-xs-offset-1 col-xs-6 panel contenedor">
         
         <legend class="text-center contenedor-titulo">
-                Gestor  de Tareas Por Prioridad :D
+                Reporte de bugs de Workep
         </legend>
         <article   class="row">
             <nav class="navbar navbar-default">
                 <form name="forma"  ng-submit="agregarTarea()" class="navbar-form">
                     <div class="form-group has-feedback" ng-class="{'has-error':forma.texto.$invalid, 'has-success': forma.texto.$valid}">
-                        <input name="texto" required ng-model="textoNuevaTarea" type="text"  class="form-control" placeholder="Crea una Tarea!!">
+                        <input data-toggle="tooltip" data-placement="bottom" title="Tarea" name="texto" required ng-model="textoNuevaTarea" type="text"  class="form-control" placeholder="Crea una Tarea!!">
                         <span ng-show="forma.texto.$dirty && forma.texto.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
                         <span ng-show="forma.texto.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
                         </div>
                     <div class="form-group has-feedback" ng-class="{'has-error':forma.prioridad.$invalid, 'has-success': forma.prioridad.$valid }">
-                        <input name="prioridad" required ng-model="prioridadNuevaTarea" type="number"  min="0" max="10" class="form-control" value="0">
+                        <input data-toggle="tooltip" data-placement="bottom" title="Prioridad" name="prioridad" required ng-model="prioridadNuevaTarea" type="number"  min="0" max="10" class="form-control" value="0" placeholder="Prioridad">
                         <span ng-show="forma.prioridad.$dirty && forma.prioridad.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span> 
                         <span ng-show="forma.prioridad.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback" ng-class="{'has-error':forma.asignador.$invalid, 'has-success': forma.asignador.$valid}">
-                        <input name="asignador" required ng-model="asignadorNuevaTarea" type="text"  class="form-control" placeholder="Quien Asigna?">  
+                        <input data-toggle="tooltip" data-placement="bottom" title="Asignador" name="asignador" required ng-model="asignadorNuevaTarea" type="text"  class="form-control" placeholder="Quien Asigna?">  
                         <span ng-show="forma.asignador.$dirty && forma.asignador.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span> 
                         <span ng-show="forma.asignador.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
                    </div>
@@ -56,7 +58,7 @@ To change this template use Tools | Templates.
                 </form>
             </nav>
         </article>
-        <small>{{resueltas()}} resueltas de {{tareas.length}} [<a href="#" class="text-danger" ng-click="archivar()">Archivar</a>]</small>
+        <small>{{resueltas()}} resueltas de {{total()}} [<a href="#" class="text-danger" ng-click="archivar()">Archivar</a>]</small>
         <article class="row tabla table-responsive">
             <table class=" table ">
               <thead>
@@ -68,7 +70,7 @@ To change this template use Tools | Templates.
                   </tr>
               </thead>
               <tbody >
-                  <tr ng-repeat="tarea in tareas | orderBy:ordenSeleccionado | filter:buscar" class="tabla-elemento is-{{tarea.hecho}}">
+                  <tr ng-click="actualizar" ng-repeat="tarea in tareas | orderBy:ordenSeleccionado | filter:buscar" class="tabla-elemento is-{{tarea.hecho}}">
                       <td><input type=checkbox ng-model="tarea.hecho"></td>
                       <td>{{tarea.texto}}</td>
                       <td>{{tarea.prioridad}}</td>
